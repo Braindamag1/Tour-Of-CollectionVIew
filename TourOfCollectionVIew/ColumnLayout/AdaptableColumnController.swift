@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource {
+class AdaptableColumnController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource {
 
     var colorArray:[UIColor] = [
         .systemRed,
@@ -18,6 +18,9 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
         .systemBlue,
         .systemPurple
     ]
+    override var description: String {
+        return "AdaptableFlowLayout"
+    }
     var collectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +28,7 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
         let layout = ColumnFlowLayout()
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         setupCollectionView()
+        navigationItem.largeTitleDisplayMode = .never
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -43,7 +47,7 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "AdaptableColumnCellID")
         collectionView.dataSource = self
         collectionView.delegate = self
     }
@@ -57,7 +61,7 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AdaptableColumnCellID", for: indexPath)
         cell.contentView.backgroundColor = colorArray[indexPath.item]
         cell.contentView.layer.cornerRadius = 20
         return cell
